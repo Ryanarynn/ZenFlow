@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="ZenFlow - Achieve deep focus with ambient soundscapes, smart timers, and gamified productivity tracking. Your personal focus sanctuary.">
+    <meta name="keywords" content="focus app, ambient sounds, productivity timer, pomodoro, study music, concentration">
+    <meta name="author" content="ZenFlow">
+    <meta name="theme-color" content="#0a0a1a">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ZenFlow - Ambient Focus & Wellness">
+    <meta property="og:description"
+        content="Achieve deep focus with immersive soundscapes and smart productivity tools.">
+    <meta property="og:type" content="website">
+
+    <title>ZenFlow - Ambient Focus & Wellness Platform</title>
+
+    <!-- Preconnect for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://unpkg.com">
+
+    <!-- Critical CSS inline for above-the-fold -->
+    <style>
+        /* Critical inline CSS for faster FCP */
+        body {
+            background: #0a0a1a;
+            color: #fff;
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem;
+            background: rgba(10, 10, 26, 0.8);
+        }
+    </style>
+
+    <!-- Google Fonts with display=swap for non-blocking -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700&display=swap"
+            rel="stylesheet">
+    </noscript>
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="styles/index.css">
+
+    <!-- Defer non-critical scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" defer></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+</head>
+
+<body>
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Animated Background (decorative) -->
+    <div class="bg-particles" id="particles" aria-hidden="true"></div>
+    <div class="bg-gradient" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i data-lucide="wind" class="logo-icon"></i>
+                <span>ZenFlow</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="nav-links desktop-only" id="navLinks">
+                <a href="#sounds" class="nav-link">Sounds</a>
+                <a href="#timer" class="nav-link">Timer</a>
+                <a href="#stats" class="nav-link">Stats</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+            </div>
+
+            <button class="nav-cta desktop-only" id="startBtn">
+                <i data-lucide="play" class="btn-icon"></i>
+                Start Focus
+            </button>
+
+            <!-- Mobile Menu Toggle (Animated Hamburger) -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Full-Screen Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true">
+        <div class="mobile-menu-content">
+            <nav class="mobile-nav-items">
+                <a href="#sounds" class="mobile-nav-item" data-index="1">
+                    <i data-lucide="headphones" aria-hidden="true"></i>
+                    <span>Sounds</span>
+                </a>
+                <a href="#timer" class="mobile-nav-item" data-index="2">
+                    <i data-lucide="clock" aria-hidden="true"></i>
+                    <span>Timer</span>
+                </a>
+                <a href="#stats" class="mobile-nav-item" data-index="3">
+                    <i data-lucide="bar-chart-2" aria-hidden="true"></i>
+                    <span>Stats</span>
+                </a>
+                <a href="#achievements" class="mobile-nav-item" data-index="4">
+                    <i data-lucide="trophy" aria-hidden="true"></i>
+                    <span>Achievements</span>
+                </a>
+            </nav>
+            <button class="mobile-menu-cta" id="mobileStartBtn">
+                <i data-lucide="play" aria-hidden="true"></i>
+                <span>Start Focus</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i data-lucide="sparkles"></i>
+                    <span>Your Focus Sanctuary</span>
+                </div>
+                <h1 class="hero-title" id="hero-heading">
+                    Find Your <span class="gradient-text">Flow State</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Immerse yourself in ambient soundscapes, track your focus sessions,
+                    and unlock your full productivity potential.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="heroStartBtn">
+                        <i data-lucide="headphones"></i>
+                        Start Listening
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i data-lucide="info"></i>
+                        Learn More
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-value">50K+</span>
+                        <span class="stat-label">Focus Sessions</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">12K+</span>
+                        <span class="stat-label">Active Users</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">4.9★</span>
+                        <span class="stat-label">User Rating</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <i data-lucide="cloud-rain"></i>
+                    <span>Rain</span>
+                </div>
+                <div class="floating-card card-2">
+                    <i data-lucide="trees"></i>
+                    <span>Forest</span>
+                </div>
+                <div class="floating-card card-3">
+                    <i data-lucide="coffee"></i>
+                    <span>Café</span>
+                </div>
+                <div class="floating-card card-4">
+                    <i data-lucide="flame"></i>
+                    <span>Fireplace</span>
+                </div>
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+        </section>
+
+        <!-- Sound Mixer Section -->
+        <section class="section sounds-section" id="sounds">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i data-lucide="music"></i>
+                        Sound Mixer
+                    </h2>
+                    <p class="section-subtitle">Layer and customize your perfect ambient environment</p>
+                </div>
+
+                <div class="sound-mixer">
+                    <div class="mixer-presets">
+                        <button class="preset-btn active" data-preset="focus">
+                            <i data-lucide="brain"></i>
+                            Deep Focus
+                        </button>
+                        <button class="preset-btn" data-preset="relax">
+                            <i data-lucide="moon"></i>
+                            Relaxation
+                        </button>
+                        <button class="preset-btn" data-preset="nature">
+                            <i data-lucide="leaf"></i>
+                            Nature
+                        </button>
+                        <button class="preset-btn" data-preset="urban">
+                            <i data-lucide="building-2"></i>
+                            Urban
+                        </button>
+                    </div>
+
+                    <div class="sound-grid">
+                        <!-- Rain -->
+                        <div class="sound-card" data-sound="rain">
+                            <div class="sound-icon">
+                                <i data-lucide="cloud-rain"></i>
+                            </div>
+                            <h3 class="sound-name">Rain</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <!-- Thunder -->
+                        <div class="sound-card" data-sound="thunder">
+                            <div class="sound-icon">
+                                <i data-lucide="cloud-lightning"></i>
+                            </div>
+                            <h3 class="sound-name">Thunder</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <!-- Forest -->
+                        <div class="sound-card" data-sound="forest">
+                            <div class="sound-icon">
+                                <i data-lucide="trees"></i>
+                            </div>
+                            <h3 class="sound-name">Forest</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <!-- Birds -->
+                        <div class="sound-card" data-sound="birds">
+                            <div class="sound-icon">
+                                <i data-lucide="bird"></i>
+                            </div>
+                            <h3 class="sound-name">Birds</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <!-- Ocean -->
+                        <div class="sound-card" data-sound="ocean">
+                            <div class="sound-icon">
+                                <i data-lucide="waves"></i>
+                            </div>
+                            <h3 class="sound-name">Ocean</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <!-- Fire -->
+                        <div class="sound-card" data-sound="fire">
+                            <div class="sound-icon">
+                                <i data-lucide="flame"></i>
+                            </div>
+                            <h3 class="sound-name">Fireplace</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <!-- Cafe -->
+                        <div class="sound-card" data-sound="cafe">
+                            <div class="sound-icon">
+                                <i data-lucide="coffee"></i>
+                            </div>
+                            <h3 class="sound-name">Café</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <!-- Wind -->
+                        <div class="sound-card" data-sound="wind">
+                            <div class="sound-icon">
+                                <i data-lucide="wind"></i>
+                            </div>
+                            <h3 class="sound-name">Wind</h3>
+                            <div class="sound-controls">
+                                <input type="range" class="volume-slider" min="0" max="100" value="0">
+                                <span class="volume-value">0%</span>
+                            </div>
+                            <button class="sound-toggle">
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timer Section -->
+        <section class="section timer-section" id="timer">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i data-lucide="timer"></i>
+                        Focus Timer
+                    </h2>
+                    <p class="section-subtitle">Stay focused with the Pomodoro technique</p>
+                </div>
+
+                <div class="timer-container">
+                    <div class="timer-display">
+                        <div class="timer-ring">
+                            <svg class="timer-svg" viewBox="0 0 200 200">
+                                <circle class="timer-bg" cx="100" cy="100" r="90" />
+                                <circle class="timer-progress" cx="100" cy="100" r="90" id="timerProgress" />
+                            </svg>
+                            <div class="timer-inner">
+                                <span class="timer-time" id="timerDisplay">25:00</span>
+                                <span class="timer-label" id="timerLabel">Focus Session</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timer-controls">
+                        <button class="timer-btn" id="timerStart">
+                            <i data-lucide="play"></i>
+                            Start
+                        </button>
+                        <button class="timer-btn" id="timerPause" style="display: none;">
+                            <i data-lucide="pause"></i>
+                            Pause
+                        </button>
+                        <button class="timer-btn timer-btn-secondary" id="timerReset">
+                            <i data-lucide="rotate-ccw"></i>
+                            Reset
+                        </button>
+                    </div>
+
+                    <div class="timer-modes">
+                        <button class="mode-btn active" data-minutes="25" data-label="Focus Session">
+                            <i data-lucide="brain"></i>
+                            Focus (25m)
+                        </button>
+                        <button class="mode-btn" data-minutes="5" data-label="Short Break">
+                            <i data-lucide="coffee"></i>
+                            Short Break (5m)
+                        </button>
+                        <button class="mode-btn" data-minutes="15" data-label="Long Break">
+                            <i data-lucide="battery-charging"></i>
+                            Long Break (15m)
+                        </button>
+                        <button class="mode-btn" id="customTimerBtn" data-label="Custom Timer">
+                            <i data-lucide="settings"></i>
+                            Custom
+                        </button>
+                    </div>
+
+                    <!-- Custom Timer Input -->
+                    <div class="custom-timer-input" id="customTimerInput" style="display: none;">
+                        <div class="custom-input-group">
+                            <label for="customMinutes" class="sr-only">Minutes</label>
+                            <input type="number" id="customMinutes" min="0" max="120" value="1" placeholder="Min"
+                                aria-label="Minutes">
+                            <span aria-hidden="true">:</span>
+                            <label for="customSeconds" class="sr-only">Seconds</label>
+                            <input type="number" id="customSeconds" min="0" max="59" value="0" placeholder="Sec"
+                                aria-label="Seconds">
+                            <button class="btn btn-sm btn-primary" id="setCustomTimer" aria-label="Set custom timer">
+                                <i data-lucide="check" aria-hidden="true"></i>
+                                Set
+                            </button>
+                        </div>
+                        <p class="custom-timer-hint" id="custom-timer-description">Set custom duration (min:sec)</p>
+                    </div>
+
+                    <div class="session-info">
+                        <div class="session-stat">
+                            <i data-lucide="check-circle"></i>
+                            <span>Today: <strong id="todaySessions">0</strong> sessions</span>
+                        </div>
+                        <div class="session-stat">
+                            <i data-lucide="flame"></i>
+                            <span>Streak: <strong id="currentStreak">0</strong> days</span>
+                        </div>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="notification-settings">
+                        <div class="notification-header">
+                            <i data-lucide="bell"></i>
+                            <span>Notification Sound</span>
+                        </div>
+                        <div class="notification-options">
+                            <button class="notification-sound-btn active" data-sound="chime" title="Chime">
+                                <i data-lucide="music"></i>
+                                <span>Chime</span>
+                            </button>
+                            <button class="notification-sound-btn" data-sound="beep" title="Beep">
+                                <i data-lucide="volume-2"></i>
+                                <span>Beep</span>
+                            </button>
+                            <button class="notification-sound-btn" data-sound="bell" title="Bell">
+                                <i data-lucide="bell-ring"></i>
+                                <span>Bell</span>
+                            </button>
+                            <button class="notification-sound-btn" data-sound="success" title="Success">
+                                <i data-lucide="sparkles"></i>
+                                <span>Success</span>
+                            </button>
+                            <button class="notification-sound-btn" data-sound="gentle" title="Gentle">
+                                <i data-lucide="heart"></i>
+                                <span>Gentle</span>
+                            </button>
+                        </div>
+                        <button class="btn btn-sm btn-ghost" id="enableNotifications">
+                            <i data-lucide="bell-plus"></i>
+                            Enable Desktop Notifications
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="section stats-section" id="stats">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i data-lucide="bar-chart-3"></i>
+                        Your Progress
+                    </h2>
+                    <p class="section-subtitle">Track your focus journey and see how far you've come</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card stat-card-large">
+                        <div class="stat-header">
+                            <i data-lucide="zap"></i>
+                            <span>Total XP</span>
+                        </div>
+                        <div class="stat-value-large" id="totalXP">0</div>
+                        <div class="xp-bar">
+                            <div class="xp-progress" id="xpProgress" style="width: 0%"></div>
+                        </div>
+                        <div class="level-info">
+                            <span id="currentLevel">Level 1: Novice</span>
+                            <span id="xpToNext">0 / 100 XP</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <i data-lucide="clock"></i>
+                            <span>Total Focus Time</span>
+                        </div>
+                        <div class="stat-value" id="totalFocusTime">0h 0m</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <i data-lucide="target"></i>
+                            <span>Sessions Completed</span>
+                        </div>
+                        <div class="stat-value" id="totalSessions">0</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <i data-lucide="flame"></i>
+                            <span>Best Streak</span>
+                        </div>
+                        <div class="stat-value" id="bestStreak">0 days</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <i data-lucide="calendar"></i>
+                            <span>This Week</span>
+                        </div>
+                        <div class="stat-value" id="weekSessions">0 sessions</div>
+                    </div>
+                </div>
+
+                <!-- Weekly Chart -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Weekly Activity</h3>
+                    <div class="weekly-chart" id="weeklyChart">
+                        <div class="chart-bar" data-day="Mon">
+                            <div class="bar-fill" style="height: 20%"></div><span>Mon</span>
+                        </div>
+                        <div class="chart-bar" data-day="Tue">
+                            <div class="bar-fill" style="height: 45%"></div><span>Tue</span>
+                        </div>
+                        <div class="chart-bar" data-day="Wed">
+                            <div class="bar-fill" style="height: 70%"></div><span>Wed</span>
+                        </div>
+                        <div class="chart-bar" data-day="Thu">
+                            <div class="bar-fill" style="height: 35%"></div><span>Thu</span>
+                        </div>
+                        <div class="chart-bar" data-day="Fri">
+                            <div class="bar-fill" style="height: 90%"></div><span>Fri</span>
+                        </div>
+                        <div class="chart-bar" data-day="Sat">
+                            <div class="bar-fill" style="height: 55%"></div><span>Sat</span>
+                        </div>
+                        <div class="chart-bar" data-day="Sun">
+                            <div class="bar-fill" style="height: 30%"></div><span>Sun</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="section achievements-section" id="achievements">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i data-lucide="trophy"></i>
+                        Achievements
+                    </h2>
+                    <p class="section-subtitle">Unlock rewards as you build your focus habits</p>
+                </div>
+
+                <div class="achievements-grid">
+                    <div class="achievement-card unlocked" data-achievement="first-session">
+                        <div class="achievement-icon">
+                            <i data-lucide="play-circle"></i>
+                        </div>
+                        <h3 class="achievement-name">First Steps</h3>
+                        <p class="achievement-desc">Complete your first focus session</p>
+                        <div class="achievement-xp">+10 XP</div>
+                    </div>
+
+                    <div class="achievement-card" data-achievement="streak-3">
+                        <div class="achievement-icon">
+                            <i data-lucide="flame"></i>
+                        </div>
+                        <h3 class="achievement-name">On Fire</h3>
+                        <p class="achievement-desc">Maintain a 3-day streak</p>
+                        <div class="achievement-xp">+25 XP</div>
+                    </div>
+
+                    <div class="achievement-card" data-achievement="streak-7">
+                        <div class="achievement-icon">
+                            <i data-lucide="award"></i>
+                        </div>
+                        <h3 class="achievement-name">Week Warrior</h3>
+                        <p class="achievement-desc">Maintain a 7-day streak</p>
+                        <div class="achievement-xp">+50 XP</div>
+                    </div>
+
+                    <div class="achievement-card" data-achievement="sessions-10">
+                        <div class="achievement-icon">
+                            <i data-lucide="target"></i>
+                        </div>
+                        <h3 class="achievement-name">Dedicated</h3>
+                        <p class="achievement-desc">Complete 10 focus sessions</p>
+                        <div class="achievement-xp">+30 XP</div>
+                    </div>
+
+                    <div class="achievement-card" data-achievement="sessions-50">
+                        <div class="achievement-icon">
+                            <i data-lucide="star"></i>
+                        </div>
+                        <h3 class="achievement-name">Focus Master</h3>
+                        <p class="achievement-desc">Complete 50 focus sessions</p>
+                        <div class="achievement-xp">+100 XP</div>
+                    </div>
+
+                    <div class="achievement-card" data-achievement="night-owl">
+                        <div class="achievement-icon">
+                            <i data-lucide="moon"></i>
+                        </div>
+                        <h3 class="achievement-name">Night Owl</h3>
+                        <p class="achievement-desc">Complete a session after midnight</p>
+                        <div class="achievement-xp">+15 XP</div>
+                    </div>
+
+                    <div class="achievement-card" data-achievement="early-bird">
+                        <div class="achievement-icon">
+                            <i data-lucide="sunrise"></i>
+                        </div>
+                        <h3 class="achievement-name">Early Bird</h3>
+                        <p class="achievement-desc">Complete a session before 7 AM</p>
+                        <div class="achievement-xp">+15 XP</div>
+                    </div>
+
+                    <div class="achievement-card" data-achievement="zen-master">
+                        <div class="achievement-icon">
+                            <i data-lucide="brain"></i>
+                        </div>
+                        <h3 class="achievement-name">Zen Master</h3>
+                        <p class="achievement-desc">Reach Level 10</p>
+                        <div class="achievement-xp">+200 XP</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section features-section" id="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i data-lucide="sparkles"></i>
+                        Why ZenFlow?
+                    </h2>
+                    <p class="section-subtitle">Everything you need to unlock your focus potential</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="headphones"></i>
+                        </div>
+                        <h3>Immersive Soundscapes</h3>
+                        <p>Layer multiple ambient sounds to create your perfect focus environment.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="timer"></i>
+                        </div>
+                        <h3>Smart Timer</h3>
+                        <p>Pomodoro technique built-in with customizable focus and break intervals.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="gamepad-2"></i>
+                        </div>
+                        <h3>Gamification</h3>
+                        <p>Earn XP, unlock achievements, and level up as you build focus habits.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="line-chart"></i>
+                        </div>
+                        <h3>Progress Tracking</h3>
+                        <p>Visualize your productivity trends with detailed analytics.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="smartphone"></i>
+                        </div>
+                        <h3>Works Everywhere</h3>
+                        <p>Responsive design that works beautifully on desktop and mobile.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i data-lucide="lock"></i>
+                        </div>
+                        <h3>Privacy First</h3>
+                        <p>All data stored locally. No accounts, no tracking, no ads.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Find Your Flow?</h2>
+                    <p>Join thousands of users who have transformed their productivity with ZenFlow.</p>
+                    <button class="btn btn-primary btn-large" id="ctaStartBtn">
+                        <i data-lucide="rocket"></i>
+                        Start Your Journey
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <i data-lucide="wind" class="logo-icon"></i>
+                        <span>ZenFlow</span>
+                    </a>
+                    <p>Your personal focus sanctuary.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="#sounds">Sounds</a>
+                        <a href="#timer">Timer</a>
+                        <a href="#stats">Stats</a>
+                        <a href="#achievements">Achievements</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <a href="https://github.com/Ryanarynn" target="_blank" rel="noopener noreferrer">
+                            <i data-lucide="github" aria-hidden="true"></i> GitHub
+                        </a>
+                        <a href="https://discordapp.com/users/415778810626048001" target="_blank"
+                            rel="noopener noreferrer">
+                            <i data-lucide="message-circle" aria-hidden="true"></i> Discord
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 ZenFlow. Made with <i data-lucide="heart" class="heart-icon"></i> for focused minds.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav">
+        <a href="#hero" class="bottom-nav-item active" data-section="hero">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#sounds" class="bottom-nav-item" data-section="sounds">
+            <i data-lucide="headphones"></i>
+            <span>Sounds</span>
+        </a>
+        <a href="#timer" class="bottom-nav-fab" data-section="timer" aria-label="Go to Timer">
+            <i data-lucide="play" aria-hidden="true"></i>
+        </a>
+        <a href="#stats" class="bottom-nav-item" data-section="stats">
+            <i data-lucide="bar-chart-2" aria-hidden="true"></i>
+            <span>Stats</span>
+        </a>
+        <a href="#achievements" class="bottom-nav-item" data-section="achievements">
+            <i data-lucide="trophy" aria-hidden="true"></i>
+            <span>Badges</span>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="scripts/app.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env*.local
+
+# Build outputs (if using build tools later)
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Debug files
+*.map
+
+# Test coverage
+coverage/
+
+# Backup files
+*.bak
+*.backup
+
+# Large media files (optional - uncomment if audio files are too large)
+# audio/*.wav
+
+# System files
+*.dll
+*.exe

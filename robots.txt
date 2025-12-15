@@ -1,0 +1,16 @@
+# robots.txt for ZenFlow
+# https://zenflow.netlify.app
+
+# Allow all search engines to crawl all content
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://zenflow.netlify.app/sitemap.xml
+
+# Disallow crawling of audio files (saves bandwidth)
+Disallow: /audio/
+
+# Disallow crawling of scripts and styles (not useful for search)
+Disallow: /scripts/
+Disallow: /styles/
