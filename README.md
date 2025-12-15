@@ -82,9 +82,7 @@ zenflow/
 
 ## Deploy
 
-1. Push to GitHub
-2. Connect to [Netlify](https://netlify.com)
-3. Auto-deploy on push
+[Netlify](https://zenfloww.netlify.app/)
 
 ---
 
