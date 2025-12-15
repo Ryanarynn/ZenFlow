@@ -90,16 +90,16 @@ const AudioManager = {
     sounds: {},
     notificationSound: null,
 
-    // Local audio file paths (WAV format)
+    // Local audio file paths (MP3 format for faster loading)
     soundSources: {
-        rain: './audio/rain.wav',
-        thunder: './audio/thunder.wav',
-        forest: './audio/forest.wav',
-        birds: './audio/birds.wav',
-        ocean: './audio/ocean.wav',
-        fire: './audio/fire.wav',
-        cafe: './audio/cafe.wav',
-        wind: './audio/wind.wav'
+        rain: './audio/rain.mp3',
+        thunder: './audio/thunder.mp3',
+        forest: './audio/forest.mp3',
+        birds: './audio/birds.mp3',
+        ocean: './audio/ocean.mp3',
+        fire: './audio/fire.mp3',
+        cafe: './audio/cafe.mp3',
+        wind: './audio/wind.mp3'
     },
 
     // Initialize all sounds with Howler.js
